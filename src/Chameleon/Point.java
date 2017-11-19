@@ -8,13 +8,14 @@ import java.util.List;
 public class Point{
 	//坐标点id号,id号唯一
 	int id;
+	//point value
+	List<Integer> list; 
+	
 	//坐标横坐标
 	//int x;
 	//坐标纵坐标
 	//int y;
 	//是否已经被访问过
-	List<Integer> list; 
-	
 	boolean isVisited;
 	
 	public Point(String s){
