@@ -1,21 +1,32 @@
 package Chameleon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //package DataMining_Chameleon;
 
 public class Point{
 	//坐标点id号,id号唯一
 	int id;
 	//坐标横坐标
-	int x;
+	//int x;
 	//坐标纵坐标
-	int y;
+	//int y;
 	//是否已经被访问过
+	List<Integer> list; 
+	
 	boolean isVisited;
 	
-	public Point(String id, String x, String y){
-		this.id = Integer.parseInt(id);
-		this.x = Integer.parseInt(x);
-		this.y = Integer.parseInt(y);
+	public Point(String s){
+		//this.id = Integer.parseInt(id);
+		//this.x = Integer.parseInt(x);
+		//this.y = Integer.parseInt(y);
+		String []ss = s.split(" ");
+		this.id = Integer.parseInt(ss[0]);
+		List<Integer> l = new ArrayList<Integer>();
+		for ( int i = 1; i < ss.length; i ++)
+			l.add(Integer.parseInt(ss[i]));
+		this.list = l;
 	}
 	
 	/**
@@ -27,9 +38,10 @@ public class Point{
 	 */
 	public double ouDistance(Point p) {
 		double distance = 0;
-
-		distance = (this.x - p.x) * (this.x - p.x) + (this.y - p.y)
-				* (this.y - p.y);
+		
+		for ( int i = 0; i < p.list.size() ; i ++)
+			distance += (this.list.get(i) - p.list.get(i)) * (this.list.get(i) - p.list.get(i));
+		//distance = (this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y);
 		distance = Math.sqrt(distance);
 
 		return distance;
@@ -43,12 +55,14 @@ public class Point{
 	 * @return
 	 */
 	public boolean isTheSame(Point p) {
+		return this.list.equals(p.list);
+		/*
 		boolean isSamed = false;
 
-		if (this.x == p.x && this.y == p.y) {
+		if (this.list.equals(p.list)) {
 			isSamed = true;
 		}
-
 		return isSamed;
+		*/
 	}
 }

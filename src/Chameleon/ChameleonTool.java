@@ -60,15 +60,13 @@ public class ChameleonTool {
 	 */
 	private void readDataFile() {
 		File file = new File(filePath);
-		ArrayList<String[]> dataArray = new ArrayList<String[]>();
+		ArrayList<String> dataArray = new ArrayList<String>();
 
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			String str;
-			String[] tempArray;
 			while ((str = in.readLine()) != null) {
-				tempArray = str.split(" ");
-				dataArray.add(tempArray);
+				dataArray.add(str);
 			}
 			in.close();
 		} catch (IOException e) {
@@ -77,8 +75,8 @@ public class ChameleonTool {
 
 		Point p;
 		totalPoints = new ArrayList<Point>();
-		for (String[] array : dataArray) {
-			p = new Point(array[0], array[1], array[2]);
+		for (String array : dataArray) {
+			p = new Point(array);
 			totalPoints.add(p);
 		}
 		pointNum = totalPoints.size();
@@ -415,7 +413,12 @@ public class ChameleonTool {
 				fw.write("聚簇" + i + ":");
 				
 				for (Point p : cluster.points) {
-					fw.write(MessageFormat.format("({0}, {1}) ", p.x, p.y));
+					//fw.write(MessageFormat.format("({0}, {1}) ", p.x, p.y));
+					String s = "(";
+					for (int id = 0; id < p.list.size(); id ++)
+						s += p.list.get(id)+",";
+					s = s.substring(0, s.length()-1)+") ";
+					fw.write(s);
 				}
 				fw.write("\r\n");
 				i++;
